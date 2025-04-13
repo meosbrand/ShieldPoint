@@ -4,17 +4,26 @@ import {useState} from 'react';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+import {useRouter} from 'next/navigation';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     // TODO: Implement actual authentication logic here
-    console.log('Login submitted', {username, password});
-    // For now, just show an alert
-    alert(`Logging in with username: ${username}`);
+    // In a real application, you would send the username and password to your backend
+    // and validate the credentials. If the credentials are valid, you would receive a token
+    // that you would store in local storage or a cookie.
+    if (username === 'user' && password === 'password') {
+      // Simulate successful login
+      localStorage.setItem('authToken', 'dummyToken');
+      router.push('/dashboard');
+    } else {
+      alert('Invalid credentials');
+    }
   };
 
   return (
