@@ -21,6 +21,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <ThemeToggle />
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
+        <p className="text-2xl">Hello User,</p>
         <h1 className="text-6xl font-bold">
           Welcome to <span className="text-primary">ShieldPoint</span>
         </h1>
@@ -50,4 +51,5 @@ export default function Home() {
     </div>
   );
 }
+
 
