@@ -12,12 +12,15 @@ import {
 import {useEffect, useState} from 'react';
 import {ThemeToggle} from '@/components/ui/theme-toggle';
 import Link from 'next/link';
+import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
+import {Icons} from '@/components/icons';
 
 export default function Home() {
   const [points, setPoints] = useState(0);
+  const [isNewUser, setIsNewUser] = useState(true); // Simulating a new user
 
   useEffect(() => {
-    // Simulate earning points
+    // Simulate earning points every 5 seconds
     const interval = setInterval(() => {
       setPoints(prevPoints => prevPoints + 10);
     }, 5000);
@@ -26,7 +29,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="flex flex-col items-center justify-start min-h-screen py-8">
       <div className="absolute top-4 right-4 flex items-center space-x-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -44,33 +47,65 @@ export default function Home() {
         </DropdownMenu>
         <ThemeToggle />
       </div>
+
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-        <p className="text-2xl">Hello User,</p>
-        <h1 className="text-6xl font-bold">
-          Welcome to <span className="text-primary">ShieldPoint</span>
-        </h1>
+        {isNewUser ? (
+          <section className="max-w-2xl mb-8">
+            <Alert variant="default">
+              <Icons.shield className="h-6 w-6" />
+              <AlertTitle>Welcome to ShieldPoint!</AlertTitle>
+              <AlertDescription>
+                Thank you for installing ShieldPoint. Get started by exploring the features below.
+              </AlertDescription>
+            </Alert>
+            <div className="mt-4">
+              <p className="text-lg">
+                ShieldPoint helps you stay safe online by detecting and blocking potential threats.
+                Here's how it works:
+              </p>
+              <ul className="list-disc pl-5 mt-2">
+                <li>Real-time threat detection</li>
+                <li>AI-powered threat analysis</li>
+                <li>Rewards for safe browsing</li>
+              </ul>
+              <Button className="mt-4" onClick={() => setIsNewUser(false)}>
+                Start Exploring
+              </Button>
+            </div>
+          </section>
+        ) : (
+          <>
+            <p className="text-2xl">Hello User,</p>
+            <h1 className="text-6xl font-bold">
+              Welcome to <span className="text-primary">ShieldPoint</span>
+            </h1>
 
-        <p className="mt-3 text-2xl">Get rewarded for staying safe online!</p>
+            <p className="mt-3 text-2xl">Get rewarded for staying safe online!</p>
 
-        <div className="mt-6 flex flex-wrap items-center justify-around max-w-4xl sm:w-full">
-          <Card className="w-full md:w-1/3 p-4">
-            <CardHeader>
-              <CardTitle>Points Balance</CardTitle>
-              <CardDescription>Your current reward points</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-4xl font-bold text-accent">{points}</div>
-            </CardContent>
-          </Card>
-        </div>
-        <div className="mt-4 space-x-4">
-          <Link href="/analytics" className="text-blue-500 hover:underline">
-            View Analytics
-          </Link>
-          <Link href="/settings" className="text-blue-500 hover:underline">
-            Extension Settings
-          </Link>
-        </div>
+            <div className="mt-6 flex flex-wrap items-center justify-around max-w-4xl sm:w-full">
+              <Card className="w-full md:w-1/3 p-4">
+                <CardHeader>
+                  <CardTitle>Points Balance</CardTitle>
+                  <CardDescription>Your current reward points</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-4xl font-bold text-accent">{points}</div>
+                </CardContent>
+              </Card>
+            </div>
+            <div className="mt-4 space-x-4">
+              <Link href="/analytics" className="text-blue-500 hover:underline">
+                View Analytics
+              </Link>
+              <Link href="/settings" className="text-blue-500 hover:underline">
+                Extension Settings
+              </Link>
+              <Link href="/about" className="text-blue-500 hover:underline">
+                About ShieldPoint
+              </Link>
+            </div>
+          </>
+        )}
       </main>
     </div>
   );
