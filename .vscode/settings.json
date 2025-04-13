@@ -1,3 +1,5 @@
+git remote add origin https://github.com/meosbrand/ShieldPoint
+git push -u origin master
 {
     "IDX.aI.enableInlineCompletion": true,
     "IDX.aI.enableCodebaseIndexing": true
