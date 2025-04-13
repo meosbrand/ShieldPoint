@@ -1,7 +1,9 @@
+
 'use client'
 
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {useEffect, useState} from "react";
+import {ThemeToggle} from "@/components/ui/theme-toggle";
 
 export default function Home() {
   const [points, setPoints] = useState(0);
@@ -17,6 +19,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <ThemeToggle/>
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
         <h1 className="text-6xl font-bold">
           Welcome to <span className="text-primary">ShieldPoint</span>
@@ -41,4 +44,3 @@ export default function Home() {
     </div>
   );
 }
-
