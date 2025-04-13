@@ -68,9 +68,11 @@ export default function Home() {
                 <li>AI-powered threat analysis</li>
                 <li>Rewards for safe browsing</li>
               </ul>
-              <Button className="mt-4 hover:shadow-md transition duration-300">
-                Start Exploring
-              </Button>
+              <Link href="/analytics">
+                <Button className="mt-4 hover:shadow-md transition duration-300">
+                  Start Exploring
+                </Button>
+              </Link>
             </div>
           </section>
         ) : (
