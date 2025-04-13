@@ -5,24 +5,30 @@ import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {useRouter} from 'next/navigation';
+import {useToast} from "@/hooks/use-toast";
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+  const {toast} = useToast();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    // TODO: Implement actual authentication logic here
-    // In a real application, you would send the username and password to your backend
-    // and validate the credentials. If the credentials are valid, you would receive a token
-    // that you would store in local storage or a cookie.
+
     if (username === 'user' && password === 'password') {
-      // Simulate successful login
       localStorage.setItem('authToken', 'dummyToken');
+      toast({
+        title: "Login Successful",
+        description: "You have successfully logged in.",
+      });
       router.push('/dashboard');
     } else {
-      alert('Invalid credentials');
+      toast({
+        variant: "destructive",
+        title: "Login Failed",
+        description: "Invalid credentials. Please try again.",
+      });
     }
   };
 
