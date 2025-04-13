@@ -34,7 +34,7 @@ export default function Home() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon">
-              <Avatar className="h-8 w-8">
+              <Avatar className="h-8 w-8 hover:scale-110 transition-transform duration-200">
                 <AvatarImage src="https://picsum.photos/50/50" alt="Profile" />
                 <AvatarFallback>SP</AvatarFallback>
               </Avatar>
@@ -68,7 +68,7 @@ export default function Home() {
                 <li>AI-powered threat analysis</li>
                 <li>Rewards for safe browsing</li>
               </ul>
-              <Button className="mt-4" onClick={() => setIsNewUser(false)}>
+              <Button className="mt-4 hover:shadow-md transition duration-300">
                 Start Exploring
               </Button>
             </div>
@@ -83,7 +83,7 @@ export default function Home() {
             <p className="mt-3 text-2xl">Get rewarded for staying safe online!</p>
 
             <div className="mt-6 flex flex-wrap items-center justify-around max-w-4xl sm:w-full">
-              <Card className="w-full md:w-1/3 p-4">
+              <Card className="w-full md:w-1/3 p-4 hover:scale-105 transition-transform duration-300">
                 <CardHeader>
                   <CardTitle>Points Balance</CardTitle>
                   <CardDescription>Your current reward points</CardDescription>
@@ -94,13 +94,13 @@ export default function Home() {
               </Card>
             </div>
             <div className="mt-4 space-x-4">
-              <Link href="/analytics" className="text-blue-500 hover:underline">
+              <Link href="/analytics" className="text-blue-500 hover:underline hover:text-blue-700 transition-colors duration-200">
                 View Analytics
               </Link>
-              <Link href="/settings" className="text-blue-500 hover:underline">
+              <Link href="/settings" className="text-blue-500 hover:underline hover:text-blue-700 transition-colors duration-200">
                 Extension Settings
               </Link>
-              <Link href="/about" className="text-blue-500 hover:underline">
+              <Link href="/about" className="text-blue-500 hover:underline hover:text-blue-700 transition-colors duration-200">
                 About ShieldPoint
               </Link>
             </div>

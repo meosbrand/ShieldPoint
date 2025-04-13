@@ -2,7 +2,6 @@
 
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {useEffect, useState} from 'react';
-import {Button} from '@/components/ui/button';
 import Link from 'next/link';
 
 const AnalyticsPage = () => {
@@ -30,18 +29,18 @@ const AnalyticsPage = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-        <h1 className="text-4xl font-bold">Analytics Dashboard</h1>
+        <h1 className="text-4xl font-bold mb-4">Analytics Dashboard</h1>
         <p className="mt-3 text-xl">Overview of your browsing activity and detected threats</p>
 
         <div className="mt-6 w-full max-w-4xl">
-          <Card className="mb-4">
+          <Card className="mb-4 hover:shadow-lg transition duration-300">
             <CardHeader>
               <CardTitle>Browsing History</CardTitle>
             </CardHeader>
             <CardContent>
               <ul>
                 {browsingHistory.map(item => (
-                  <li key={item.id} className="py-2 border-b">
+                  <li key={item.id} className="py-2 border-b hover:bg-gray-50 transition duration-200">
                     <span className="mr-2">{item.url}</span>
                     {item.threatDetected ? (
                       <span className="text-red-500">Threat Detected</span>
@@ -54,7 +53,7 @@ const AnalyticsPage = () => {
             </CardContent>
           </Card>
         </div>
-        <Link href="/" className="text-blue-500 hover:underline">
+        <Link href="/" className="text-blue-500 hover:underline hover:text-blue-700 transition-colors duration-200">
           Back to Home
         </Link>
       </main>

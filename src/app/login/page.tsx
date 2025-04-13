@@ -20,7 +20,7 @@ const LoginPage = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-        <Card className="w-full max-w-md">
+        <Card className="w-full max-w-md hover:shadow-xl transition duration-300">
           <CardHeader>
             <CardTitle>Login</CardTitle>
           </CardHeader>
@@ -31,14 +31,16 @@ const LoginPage = () => {
                 placeholder="Username"
                 value={username}
                 onChange={e => setUsername(e.target.value)}
+                className="hover:border-blue-500 focus:border-blue-500 transition-colors duration-300"
               />
               <Input
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
+                className="hover:border-blue-500 focus:border-blue-500 transition-colors duration-300"
               />
-              <Button type="submit">Log In</Button>
+              <Button type="submit" className="hover:bg-blue-700 transition-colors duration-300">Log In</Button>
             </form>
           </CardContent>
         </Card>

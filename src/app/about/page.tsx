@@ -7,11 +7,11 @@ const AboutPage = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-        <h1 className="text-4xl font-bold">About ShieldPoint</h1>
+        <h1 className="text-4xl font-bold mb-4">About ShieldPoint</h1>
         <p className="mt-3 text-xl">Learn more about our mission to keep you safe online.</p>
 
         <div className="mt-6 w-full max-w-4xl">
-          <Card className="mb-4">
+          <Card className="mb-4 hover:shadow-lg transition duration-300">
             <CardHeader>
               <CardTitle>Our Mission</CardTitle>
             </CardHeader>
@@ -24,7 +24,7 @@ const AboutPage = () => {
             </CardContent>
           </Card>
 
-          <Card className="mb-4">
+          <Card className="mb-4 hover:shadow-lg transition duration-300">
             <CardHeader>
               <CardTitle>Key Features</CardTitle>
             </CardHeader>
@@ -38,14 +38,14 @@ const AboutPage = () => {
             </CardContent>
           </Card>
 
-          <Card className="mb-4">
+          <Card className="mb-4 hover:shadow-lg transition duration-300">
             <CardHeader>
               <CardTitle>Contact Us</CardTitle>
             </CardHeader>
             <CardContent>
               <p>
                 If you have any questions or feedback, please don't hesitate to{' '}
-                <a href="mailto:support@shieldpoint.com" className="text-blue-500 hover:underline">
+                <a href="mailto:support@shieldpoint.com" className="text-blue-500 hover:underline hover:text-blue-700 transition-colors duration-200">
                   contact us
                 </a>
                 .
@@ -54,7 +54,7 @@ const AboutPage = () => {
           </Card>
         </div>
 
-        <Link href="/" className="text-blue-500 hover:underline">
+        <Link href="/" className="text-blue-500 hover:underline hover:text-blue-700 transition-colors duration-200">
           Back to Home
         </Link>
       </main>
