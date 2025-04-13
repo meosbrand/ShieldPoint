@@ -11,10 +11,9 @@ import {Icons} from "@/components/icons";
 import {ThemeProvider} from "next-themes";
 import {
   getAuth,
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import {doc, setDoc, getFirestore} from 'firebase/firestore';
+import {getFirestore} from 'firebase/firestore';
 import {app} from '@/lib/firebase';
 import {useForm} from "react-hook-form";
 
@@ -77,7 +76,7 @@ const LoginPage = () => {
             <CardContent>
               {error && (
                 <Alert variant="destructive">
-                  <Icons.warning className="h-4 w-4" />
+                  <Icons.close className="h-4 w-4" />
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
@@ -127,3 +126,5 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+    

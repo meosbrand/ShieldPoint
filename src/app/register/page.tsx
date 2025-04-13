@@ -101,7 +101,7 @@ const RegisterPage = () => {
             <CardContent>
               {error && (
                 <Alert variant="destructive">
-                  <Icons.warning className="h-4 w-4" />
+                  <Icons.close className="h-4 w-4" />
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
