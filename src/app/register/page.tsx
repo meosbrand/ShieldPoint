@@ -12,15 +12,17 @@ import {ThemeProvider} from "next-themes";
 import {
   getAuth,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import {doc, setDoc, getFirestore} from 'firebase/firestore';
 import {app} from '@/lib/firebase';
 import {useForm} from "react-hook-form";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [username, setUsername] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -33,31 +35,53 @@ const LoginPage = () => {
     setIsLoading(true);
     setError(null);
 
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      toast({
+        variant: "destructive",
+        title: "Registration Error",
+        description: "Passwords do not match. Please try again.",
+      });
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
       if (user) {
+        await updateProfile(user, {
+          displayName: username,
+        });
+
+        // Store additional user data in Firestore
+        await setDoc(doc(db, "users", user.uid), {
+          email: email,
+          username: username,
+          points: 0, // Initial points
+        });
+
         localStorage.setItem('authToken', user.uid);
         toast({
-          title: "Login Successful",
-          description: "Redirecting to dashboard...",
+          title: "Registration Successful",
+          description: "Account created successfully. Redirecting to dashboard...",
         });
         router.push('/dashboard');
       } else {
-        setError("Login failed.");
+        setError("Registration failed.");
         toast({
           variant: "destructive",
-          title: "Login Failed",
-          description: "Failed to log in. Please try again.",
+          title: "Registration Failed",
+          description: "Failed to create account. Please try again.",
         });
       }
     } catch (e: any) {
       setError(e.message || "An unexpected error occurred");
       toast({
         variant: "destructive",
-        title: "Login Error",
-        description: e.message || "Failed to log in.",
+        title: "Registration Error",
+        description: e.message || "Failed to create account.",
       });
     } finally {
       setIsLoading(false);
@@ -71,7 +95,7 @@ const LoginPage = () => {
           <Card className="w-full max-w-md p-8 rounded-2xl shadow-lg hover:shadow-xl transition duration-300">
             <CardHeader>
               <CardTitle className="text-3xl font-semibold text-gray-800">
-                Log In
+                Create Account
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -82,6 +106,13 @@ const LoginPage = () => {
                 </Alert>
               )}
               <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+                <Input
+                  type="text"
+                  placeholder="Username"
+                  value={username}
+                  onChange={e => setUsername(e.target.value)}
+                  className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300 rounded-md shadow-sm"
+                />
                 <Input
                   type="email"
                   placeholder="Email"
@@ -96,6 +127,13 @@ const LoginPage = () => {
                   onChange={e => setPassword(e.target.value)}
                   className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300 rounded-md shadow-sm"
                 />
+                <Input
+                  type="password"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={e => setConfirmPassword(e.target.value)}
+                  className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300 rounded-md shadow-sm"
+                />
                 <Button
                   type="submit"
                   disabled={isLoading}
@@ -104,19 +142,19 @@ const LoginPage = () => {
                   {isLoading ? (
                     <>
                       <Icons.loader className="mr-2 h-4 w-4 animate-spin" />
-                      Logging in...
+                      Creating Account...
                     </>
                   ) : (
-                    "Log In"
+                    "Create Account"
                   )}
                 </Button>
               </form>
               <Button
                 variant="link"
-                onClick={() => router.push('/register')}
+                onClick={() => router.push('/login')}
                 className="mt-4"
               >
-                Create Account
+                Already have an account?
               </Button>
             </CardContent>
           </Card>
@@ -126,4 +164,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
