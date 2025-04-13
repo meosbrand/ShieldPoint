@@ -1,6 +1,6 @@
 'use client';
 
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
@@ -14,8 +14,10 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import {getFirestore} from 'firebase/firestore';
-import {app} from '@/lib/firebase';
+import { initializeFirebaseApp } from '@/lib/firebase';
 import {useForm} from "react-hook-form";
+
+let firebaseApp: any;
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -24,8 +26,18 @@ const LoginPage = () => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const {toast} = useToast();
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+  let auth: any;
+  let db: any;
+
+  useEffect(() => {
+    const initialize = async () => {
+      firebaseApp = await initializeFirebaseApp();
+      auth = getAuth(firebaseApp);
+      db = getFirestore(firebaseApp);
+    };
+
+    initialize();
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -126,5 +138,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
-    
